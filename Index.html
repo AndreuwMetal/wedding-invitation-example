@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>YOOUR_TITLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Italiana&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0d0b;
+    --bg-2: #15120f;
+    --paper: #1a1714;
+    --ink: #e8dfce;
+    --ink-soft: #b8ad97;
+    --accent: #c9a96e;
+    --accent-soft: #5a4d36;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; margin: 0; color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background:
+      radial-gradient(ellipse at center, rgba(201,169,110,0.08) 0%, transparent 60%),
+      var(--bg);
+    position: relative;
+  }
+  .hero::before, .hero::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 70px;
+  }
+  .hero::before { top: 6%; background: linear-gradient(var(--accent-soft), transparent); }
+  .hero::after { bottom: 6%; background: linear-gradient(transparent, var(--accent-soft)); }
+
+  .save-the-date {
+    font-family: 'Italiana', serif;
+    letter-spacing: 0.55em;
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    text-indent: 0.55em;
+  }
+  .names {
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    letter-spacing: 0.05em;
+    line-height: 1.05;
+  }
+  .ampersand {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--accent);
+    margin: 0.3rem 0;
+    font-weight: 300;
+  }
+  .ornament-dots { color: var(--accent); letter-spacing: 0.6em; font-size: 0.7rem; margin: 2rem 0 1.5rem; }
+  .date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+  }
+  .date span { padding: 0 1rem; }
+  .date span + span { border-left: 1px solid var(--accent-soft); }
+  .place {
+    margin-top: 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* COUNTDOWN */
+  .countdown {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .countdown div {
+    background: var(--paper);
+    border: 1px solid var(--accent-soft);
+    padding: 1rem 1.2rem;
+    min-width: 80px;
+  }
+  .countdown .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .countdown .label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 1.5rem;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .section-title { text-align: center; margin-bottom: 3.5rem; }
+  .section-title h2 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    letter-spacing: 0.06em;
+  }
+  .section-title .ornament {
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.6em;
+    font-size: 0.7rem;
+  }
+  .section-title .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-top: 0.6rem;
+    font-size: 1rem;
+  }
+
+  /* PASAJE BÍBLICO */
+  .scripture-photo { text-align: center; margin-bottom: 3.5rem; }
+  .scripture-photo img {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05) brightness(0.92);
+    transition: filter 0.8s ease;
+  }
+  .scripture-photo img:hover { filter: grayscale(0) contrast(1) brightness(1); }
+  .scripture-attribution {
+    text-align: center;
+    font-family: 'Italiana', serif;
+    letter-spacing: 0.4em;
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 2.5rem;
+  }
+  .scripture {
+    column-count: 2;
+    column-gap: 3rem;
+    column-rule: 1px solid var(--accent-soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    text-align: justify;
+    hyphens: auto;
+  }
+  .scripture sup {
+    color: var(--accent);
+    font-size: 0.7em;
+    margin-right: 0.15em;
+    font-family: 'Inter', sans-serif;
+  }
+  .scripture-closing {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 720px) {
+    .scripture { column-count: 1; column-rule: none; }
+  }
+
+  /* CARDS DE EVENTOS */
+  .event-card {
+    background: var(--paper);
+    border: 1px solid var(--accent-soft);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .event-card h3 {
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .event-card .when {
+    font-family: 'Italiana', serif;
+    letter-spacing: 0.3em;
+    margin: 1.2rem 0;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+  .event-card a.btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.9rem 2.5rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    transition: background 0.4s, color 0.4s;
+  }
+  .event-card a.btn:hover { background: var(--accent); color: var(--bg); }
+
+  /* FORM */
+  form { display: grid; gap: 1.2rem; max-width: 520px; margin: 0 auto; }
+  form label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  form input, form select, form textarea {
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid var(--accent-soft);
+    background: var(--paper);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    transition: border-color 0.3s;
+  }
+  form input:focus, form select:focus, form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  form select option { background: var(--paper); color: var(--ink); }
+  form button {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 1.1rem;
+    letter-spacing: 0.4em;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.3s, color 0.3s;
+  }
+  form button:hover { background: var(--accent); color: var(--bg); }
+  .form-status {
+    text-align: center;
+    margin-top: 1rem;
+    min-height: 1.5rem;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  footer {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    border-top: 1px solid var(--accent-soft);
+    background: var(--bg-2);
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="save-the-date">SAVE THE DATE</div>
+  <h1 class="names">HER_NAME</h1>
+  <div class="ampersand">&</div>
+  <h1 class="names">HIM_NAME</h1>
+
+  <div class="ornament-dots">· &nbsp; · &nbsp; ·</div>
+
+  <div class="date">
+    <span>DAY</span><span>MONTH</span><span>YEAR</span>
+  </div>
+  <p class="place">YOUR_PLACE_1</p>
+
+  <div class="countdown" id="countdown">
+    <div><div class="num" id="cd-d">--</div><div class="label">Días</div></div>
+    <div><div class="num" id="cd-h">--</div><div class="label">Horas</div></div>
+    <div><div class="num" id="cd-m">--</div><div class="label">Minutos</div></div>
+    <div><div class="num" id="cd-s">--</div><div class="label">Segundos</div></div>
+  </div>
+</header>
+
+<section>
+  <div class="scripture-photo">
+    <img src=YOUR_PHOTO alt="">
+  </div>
+
+  <div class="scripture-attribution">MATEO 6, 25 — 34</div>
+
+  <div class="scripture">
+    <p><sup>25</sup>Por lo tanto os digo: No andéis preocupados pensando qué vais a comer o qué vais a beber para poder vivir, o con qué ropa vais a cubrir vuestro cuerpo. ¿Es que no vale la vida más que la comida, y el cuerpo más que la ropa? <sup>26</sup>Mirad las aves que vuelan por el cielo: no siembran, ni cosechan, ni guardan en almacenes y, sin embargo, vuestro Padre celestial las alimenta. ¡Pues vosotros valéis mucho más que esas aves! <sup>27</sup>Por lo demás, ¿quién de vosotros, por mucho que se preocupe, podrá añadir una sola hora a su vida?</p>
+
+    <p><sup>28</sup>¿Y por qué preocuparos a causa de la ropa? Aprended de los lirios del campo y fijaos cómo crecen. No trabajan ni hilan <sup>29</sup>y, sin embargo, os digo que ni siquiera el rey Salomón, con todo su esplendor, llegó a vestirse como uno de ellos. <sup>30</sup>Pues si Dios viste así a la hierba del campo, que hoy está verde y mañana será quemada en el horno, ¿no hará mucho más por vosotros? ¡Qué débil es vuestra fe! <sup>31</sup>Así pues, no os atormentéis diciendo: "¿Qué comeremos, qué beberemos o con qué nos vestiremos?". <sup>32</sup>Esas son las cosas que preocupan a los paganos; pero vuestro Padre celestial ya sabe que las necesitáis. <sup>33</sup>Vosotros, antes que nada, buscad el reino de Dios y todo lo justo y bueno que hay en él, y Dios os dará, además, todas esas cosas. <sup>34</sup>No os inquietéis, pues, por el día de mañana, que el día de mañana ya traerá sus inquietudes. ¡Cada día tiene bastante con sus propios problemas!</p>
+  </div>
+
+  <div class="scripture-closing">— Buscad antes que nada el reino de Dios —</div>
+</section>
+
+<section>
+  <div class="section-title">
+    <div class="ornament">· · ·</div>
+    <h2>Ceremonia</h2>
+  </div>
+  <div class="event-card">
+    <h3>CHURCH_NAME</h3>
+    <div class="when">DATE</div>
+    <p style="color: var(--ink-soft);">CHURCH_PLACE</p>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=CHURCH_PLACE" target="_blank">Cómo llegar</a>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">
+    <div class="ornament">· · ·</div>
+    <h2>Celebración</h2>
+  </div>
+  <div class="event-card">
+    <h3>RESTAURANT</h3>
+    <div class="when">A CONTINUACIÓN DE LA CEREMONIA</div>
+    <p style="color: var(--ink-soft);">RESTAURANT_PLACE</p>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=RESTAURANT_PLACE" target="_blank">Cómo llegar</a>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">
+    <div class="ornament">· · ·</div>
+    <h2>Confirma tu asistencia</h2>
+    <div class="subtitle">Antes del 1 de julio de 2026</div>
+  </div>
+  <form id="rsvp-form" onsubmit="enviarRSVP(event)">
+    <div>
+      <label>Nombre completo</label>
+      <input type="text" name="nombre" required>
+    </div>
+    <div>
+      <label>¿Asistirás?</label>
+      <select name="asistencia" required>
+        <option value="">Selecciona...</option>
+        <option value="Sí, allí estaré">Sí, allí estaré</option>
+        <option value="Lo siento, no podré ir">Lo siento, no podré ir</option>
+      </select>
+    </div>
+    <div>
+      <label>Menú</label>
+      <select name="menu" id="menu-select" required onchange="toggleAlergias()">
+        <option value="">Selecciona...</option>
+        <option value="Carne">Carne</option>
+        <option value="Pescado">Pescado</option>
+        <option value="Menú especial">Tengo alergia o intolerancia</option>
+      </select>
+    </div>
+    <div id="alergias-wrap" style="display: none;">
+      <label>Detalla tu alergia o intolerancia</label>
+      <input type="text" name="alergias" placeholder="Vegetariano, sin gluten, lactosa…">
+    </div>
+    <div>
+      <label>Email o teléfono</label>
+      <input type="text" name="contacto">
+    </div>
+    <div>
+      <label>Mensaje para los novios</label>
+      <textarea name="mensaje" rows="3"></textarea>
+    </div>
+    <button type="submit">Enviar confirmación</button>
+    <div class="form-status" id="form-status"></div>
+  </form>
+</section>
+
+<footer>
+  Con todo nuestro cariño · VII · VIII · MMXXVI
+</footer>
+
+<script>
+  const target = new Date('2026-08-07T13:00:00+02:00').getTime();
+  function tick() {
+    const diff = target - Date.now();
+    if (diff <= 0) { document.getElementById('countdown').innerHTML = '<h3>¡Ha llegado el día!</h3>'; return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+
+  function toggleAlergias() {
+    const sel = document.getElementById('menu-select');
+    const wrap = document.getElementById('alergias-wrap');
+    wrap.style.display = sel.value === 'Menú especial' ? 'block' : 'none';
+  }
+
+  function enviarRSVP(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = Object.fromEntries(new FormData(form).entries());
+    const status = document.getElementById('form-status');
+    status.textContent = 'Enviando...';
+    google.script.run
+      .withSuccessHandler(res => {
+        if (res.ok) {
+          status.textContent = 'Gracias. Hemos recibido tu confirmación.';
+          form.reset();
+        } else {
+          status.textContent = 'Error: ' + res.error;
+        }
+      })
+      .withFailureHandler(err => status.textContent = 'Error: ' + err.message)
+      .submitRSVP(data);
+  }
+</script>
+</body>
+</html>

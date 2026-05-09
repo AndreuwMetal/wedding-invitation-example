@@ -1,4 +1,4 @@
-# Wedding Invitation · Helena & Andrés
+# Wedding Invitation
 
 Interactive digital wedding invitation deployed as a Google Apps Script web app. Dark, elegant and minimalist design featuring a live countdown, a Bible passage, ceremony and reception locations, and an RSVP form that stores responses in a Google Sheet.
 
